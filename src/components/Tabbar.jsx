@@ -24,6 +24,10 @@ class Tabbar extends BasicComponent {
     node.removeEventListener('reactive', this.props.onReactive);
   }
 
+  componentDidUpdate() {
+    // this.refs.tabbar.setActiveTab(this.props.activeIndex);
+  }
+
   //
   // handleChange(event) {
   //   this.setState({activeIndex: event.index});
@@ -49,7 +53,7 @@ class Tabbar extends BasicComponent {
     Util.convert(others, 'animationOptions', {fun: Util.animationOptionsConverter, newName: 'animation-options'});
 
     return (
-      <ons-tabbar {...this.props} ref='tabbar' activeIndex={this.props.activeIndex} _compiled='true'>
+      <ons-tabbar {...this.props} ref='tabbar' _compiled='true'>
         <div no-status-bar-fill className={'ons-tab-bar__content tab-bar__content' + (this.props.position === 'top' ? ' tab-bar--top__content' : '')}>
           {tabs.map((tab) => tab.content)}
         </div>
