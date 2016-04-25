@@ -45,6 +45,17 @@ class Tabbar extends BasicComponent {
   render() {
     const tabs = this.props.renderTabs(this.state.activeIndex, this);
 
+    if (!this.tabs) {
+      this.tabs = tabs;
+    } else {
+      for (var i = 0; i < tabs.length; i++) {
+        this.tabs[i].tab = tabs[i].tab;
+        if (this.state.activeIndex === i) {
+          this.tabs[i].content = tabs[i].content;
+        }
+      }
+    }
+
     var {...others} = this.props;
 
     ['animation'].forEach((el) => {
@@ -56,10 +67,10 @@ class Tabbar extends BasicComponent {
     return (
       <ons-tabbar {...this.props} ref='tabbar' activeIndex={this.state.activeIndex} _compiled='true'>
         <div no-status-bar-fill className={'ons-tab-bar__content tab-bar__content' + (this.props.position === 'top' ? ' tab-bar--top__content' : '')}>
-          {tabs.map((tab) => tab.content)}
+          {this.tabs.map((tab) => tab.content)}
         </div>
         <div className={'tab-bar ons-tab-bar__footer ons-tabbar-inner' + (this.props.position === 'top' ? ' tab-bar--top' : '')}>
-          {tabs.map((tab) => tab.tab)}
+          {this.tabs.map((tab) => tab.tab)}
         </div>
       </ons-tabbar>
     );
